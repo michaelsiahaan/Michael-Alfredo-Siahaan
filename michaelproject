@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Nadia Sayang ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Background gradasi merah gelap ke hitam (mewah) */
+            background: linear-gradient(135deg, #1a0505 0%, #000000 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Raleway', sans-serif;
+            color: #fff;
+            position: relative;
+        }
+
+        /* --- EFEK HUJAN LOVE MELAYANG --- */
+        #floating-hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .bg-heart {
+            position: absolute;
+            bottom: -10vh;
+            color: rgba(255, 77, 109, 0.4);
+            font-size: 20px;
+            animation: floatUpBg infinite linear;
+            text-shadow: 0 0 10px rgba(255, 77, 109, 0.5);
+        }
+
+        @keyframes floatUpBg {
+            0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) scale(1.5) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- KARTU KACA (GLASSMORPHISM) --- */
+        .luxury-card {
+            position: relative;
+            z-index: 10;
+            background: rgba(30, 5, 10, 0.5);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+            border-radius: 20px;
+            padding: 50px 40px;
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(255, 182, 193, 0.1);
+            transition: all 1.5s ease;
+        }
+
+        /* --- TOMBOL ELEGAN --- */
+        .btn-luxury {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-family: 'Playfair Display', serif;
+            background: linear-gradient(45deg, #ff4d6d, #ffb3c6, #ff4d6d);
+            background-size: 200% 200%;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 5px 20px rgba(255, 77, 109, 0.5);
+            animation: shimmerBtn 3s infinite linear;
+            transition: all 0.4s ease;
+        }
+
+        .btn-luxury:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 77, 109, 0.8);
+        }
+
+        @keyframes shimmerBtn {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- TEKS JUDUL --- */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            background: linear-gradient(to right, #ffb3c6, #fff, #ffb3c6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 2s ease;
+        }
+
+        /* --- TEKS PESAN ROMANTIS --- */
+        .romantic-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            min-height: 150px;
+            color: #fceceb;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+            font-weight: 300;
+        }
+
+        /* Cursor ketik berkedip */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: #ffb3c6;
+            vertical-align: middle;
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Efek Ledakan Love dari kursor */
+        .click-heart {
+            position: absolute;
+            color: #ff4d6d;
+            font-size: 25px;
+            animation: burst 2s ease-out forwards;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        @keyframes burst {
+            0% { transform: scale(1) translate(0, 0); opacity: 1; }
+            100% { transform: scale(1.5) translate(var(--tx), var(--ty)); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="beautiful.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="floating-hearts"></div>
+
+    <div class="luxury-card" id="card">
+        <button class="btn-luxury" id="openBtn">Sentuh Ini Sayang 💌</button>
+        
+        <h1 id="title">My one and only,<br>Nadia Maharani Novisa ❤️</h1>
+        
+        <div class="romantic-text">
+            <span id="message"></span><span class="cursor" id="cursor" style="display: none;"></span>
+        </div>
+    </div>
+
+    <script>
+        // --- KATA-KATA ROMANTIS YANG BIKIN MELELEH ---
+        const romanticPoem = "Nad... Among billions of souls in this world, finding you is the most beautiful blessing life has ever given me. With you, even the simplest days become meaningful. Your smile is the light that calms my heart, and your laughter is a melody I never want to stop hearing. Stay by my side, be the home my heart always returns to and the most beautiful reason I keep moving forward. I love you—not only today, but in every second yet to come, deeper than words could ever express, wider than the universe I could ever imagine. If you’re willing, I’d love the chance to call you my love again—not just as a word, but as a promise.";
+        
+        const openBtn = document.getElementById('openBtn');
+        const title = document.getElementById('title');
+        const messageSpan = document.getElementById('message');
+        const cursor = document.getElementById('cursor');
+        const card = document.getElementById('card');
+        const music = document.getElementById('bgMusic');
+
+        // Bikin Love Melayang di Background secara terus menerus
+        function createFloatingHearts() {
+            const container = document.getElementById('floating-hearts');
+            const heartChars = ['❤', '💕', '💖', '💗'];
+            
+            setInterval(() => {
+                let heart = document.createElement('div');
+                heart.className = 'bg-heart';
+                heart.innerHTML = heartChars[Math.floor(Math.random() * heartChars.length)];
+                
+                // Posisi dan ukuran acak
+                let size = Math.random() * 20 + 10;
+                heart.style.fontSize = size + 'px';
+                heart.style.left = Math.random() * 100 + 'vw';
+                
+                // Waktu melayang acak biar natural
+                heart.style.animationDuration = Math.random() * 5 + 5 + 's';
+                
+                container.appendChild(heart);
+                
+                // Hapus love setelah animasi selesai biar web nggak lemot
+                setTimeout(() => {
+                    heart.remove();
+                }, 10000);
+            }, 300); // Munculin 1 love setiap 0.3 detik
+        }
+        createFloatingHearts();
+
+        // Efek Ledakan Love pas tombol disentuh
+        function burstHearts(x, y) {
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement('div');
+                heart.className = 'click-heart';
+                heart.innerHTML = '❤';
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+                
+                // Arah ledakan acak
+                let tx = (Math.random() - 0.5) * 200 + 'px';
+                let ty = (Math.random() - 0.5) * 200 - 50 + 'px';
+                heart.style.setProperty('--tx', tx);
+                heart.style.setProperty('--ty', ty);
+                
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 2000);
+            }
+        }
+
+        // Efek Ketik Pesan Lambat
+        let i = 0;
+        function typeWriter() {
+            if (i < romanticPoem.length) {
+                messageSpan.innerHTML += romanticPoem.charAt(i);
+                i++;
+                setTimeout(typeWriter, 70); // Kecepatan ngetik
+            } else {
+                cursor.style.display = 'none'; // Ilangin kursor kalo kelar
+            }
+        }
+
+        // EVENT KLIK TOMBOL
+        openBtn.addEventListener('click', function(e) {
+            // 1. Putar Musik MP3
+            music.volume = 0.8;
+            music.play().catch(err => alert("Pastikan file 'beautiful.mp3' ada di folder yang sama ya!"));
+
+            // 2. Ledakan Love
+            burstHearts(e.clientX, e.clientY);
+
+            // 3. Sembunyikan Tombol
+            this.style.transform = 'scale(0)';
+            this.style.opacity = '0';
+            setTimeout(() => this.style.display = 'none', 500);
+            
+            // 4. Ubah Kartu jadi lebih bersinar pink/emas
+            card.style.boxShadow = '0 20px 60px rgba(255, 77, 109, 0.4), inset 0 0 30px rgba(255, 77, 109, 0.2)';
+            card.style.border = '1px solid rgba(255, 77, 109, 0.6)';
+
+            // 5. Munculkan Judul
+            setTimeout(() => {
+                title.style.display = 'block';
+                void title.offsetWidth; // trigger animasi
+                title.style.opacity = '1';
+                title.style.transform = 'translateY(0)';
+            }, 600);
+
+            // 6. Mulai Ngetik Pesan
+            setTimeout(() => {
+                cursor.style.display = 'inline-block';
+                typeWriter();
+            }, 2500);
+        });
+    </script>
+</body>
+</html>
